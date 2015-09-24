@@ -3,4 +3,35 @@
     xmlns:map="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
     android:layout_height="match_parent" android:id="@+id/map"
     tools:context="es.pabgarci.mimapa.MapActivity"
-    android:name="com.google.android.gms.maps.SupportMapFragment" />
+    android:name="com.google.android.gms.maps.SupportMapFragment" >
+
+
+<TextView
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:textAppearance="?android:attr/textAppearanceLarge"
+android:textSize="12sp"
+android:id="@+id/textGPS"
+android:layout_centerVertical="true"
+android:layout_centerHorizontal="true" />
+
+<Button
+style="?android:attr/buttonStyleSmall"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_gravity="center|bottom"
+android:textColor="#FFFFFF"
+android:textSize="25sp"
+android:shadowColor="#8a6603"
+android:text="@string/text_saveLocation"
+android:onClick="saveLocation"
+android:id="@+id/buttonGoToMap"
+android:shadowDx="3"
+android:shadowDy="2"
+android:shadowRadius="5"
+android:background="#28727D"
+android:padding="10sp"
+android:layout_marginTop="20sp"
+android:layout_alignParentStart="true"
+android:layout_alignParentEnd="true"/>
+</fragment>

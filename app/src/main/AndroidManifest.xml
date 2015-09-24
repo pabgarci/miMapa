@@ -41,6 +41,11 @@
             android:name=".MapActivity"
             android:label="@string/title_activity_map" >
         </activity>
+        <activity
+            android:name=".LocationsDBHandler"
+            android:label="@string/title_activity_locations_dbhandler"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
     </application>
 
 </manifest>
