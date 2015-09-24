@@ -21,6 +21,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
 
+//esto es una prueba
+
 public class InitActivity extends AppCompatActivity {
 
     LocationsDBHandler admin;
