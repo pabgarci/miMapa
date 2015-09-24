@@ -44,8 +44,7 @@ public class InitActivity extends AppCompatActivity {
             String address;
             String city;
             String text;
-            String lat;
-            String lon;
+
 
 
             db = admin.getWritableDatabase();
@@ -55,8 +54,7 @@ public class InitActivity extends AppCompatActivity {
             name=c.getString(1);
             address=c.getString(2);
             city=c.getString(3);
-            lat=c.getString(4);
-            lon=c.getString(5);
+            
 
             text= name + ", " + address + ", " + city;
 
