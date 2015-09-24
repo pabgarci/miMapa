@@ -2,6 +2,7 @@ package es.pabgarci.mimapa;
 
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -33,6 +34,7 @@ public class ShowLocationActivity extends FragmentActivity implements OnMapReady
 
     public void showLocation(double showLat,double showLon){
         LatLng showLatLon = new LatLng(showLat, showLon);
+        Toast.makeText(getApplicationContext(), "Lat: " + showLat + ", Lon: " + showLon, Toast.LENGTH_SHORT).show();
         showMap.addMarker(new MarkerOptions().position(showLatLon).title("You are here"));
         showMap.animateCamera(CameraUpdateFactory.newLatLngZoom(showLatLon, 15));
     }

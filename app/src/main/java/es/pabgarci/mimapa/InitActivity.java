@@ -1,6 +1,5 @@
 package es.pabgarci.mimapa;
 
-import android.content.Context;
 import android.os.Bundle;
 
 import android.support.v7.app.AppCompatActivity;
@@ -84,7 +83,7 @@ public class InitActivity extends AppCompatActivity{
 
         db = admin.getWritableDatabase();
 
-        Cursor c = db.rawQuery("SELECT LAT FROM Locations WHERE _id=" + idAux, null);
+        Cursor c = db.rawQuery("SELECT LON FROM Locations WHERE _id=" + idAux, null);
         c.moveToFirst();
         lonAux=c.getDouble(0);
         c.close();
@@ -121,7 +120,7 @@ public class InitActivity extends AppCompatActivity{
         list.setOnItemLongClickListener (new AdapterView.OnItemLongClickListener() {
             public boolean onItemLongClick(AdapterView parent, View view, int position, long id) {
                 showLat=getLat((int)id);
-                showLon=getLon((int)id);
+                showLon=getLon((int) id);
                 ShowLocationOnMap(view);
                 return true;
             }
