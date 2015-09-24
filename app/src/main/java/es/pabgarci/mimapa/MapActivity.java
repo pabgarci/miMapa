@@ -3,6 +3,7 @@ package es.pabgarci.mimapa;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.support.v4.app.FragmentActivity;
@@ -19,9 +20,17 @@ import android.location.Location;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.content.res.TypedArray;
+import android.util.AttributeSet;
+import android.view.Gravity;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.RemoteViews;
 
 
 import com.google.android.gms.common.ConnectionResult;
@@ -163,20 +172,19 @@ public class MapActivity extends FragmentActivity implements
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Enter location name");
+        builder.setIcon(android.R.drawable.ic_menu_save);
 
         final EditText input = new EditText(this);
 
         input.setInputType(InputType.TYPE_CLASS_TEXT);
         builder.setView(input);
 
-
         builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 namePlace = input.getText().toString();
                 Bundle b = new Bundle();
-                //String showAddress = "Location saved:\n" + namePlace + "\n" + textAddress + ", " + textCity;
-                Intent intent=getIntent();
+                Intent intent = getIntent();
                 b.putString("NAME", namePlace);
                 b.putString("ADDRESS", textAddress);
                 b.putString("CITY", textCity);
@@ -185,6 +193,14 @@ public class MapActivity extends FragmentActivity implements
                 intent.putExtras(b);
                 setResult(1, intent);
                 finish();
+                    }
+                });
+
+        builder.setNeutralButton("Take photo", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

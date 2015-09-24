@@ -2,6 +2,7 @@ package es.pabgarci.mimapa;
 
 import android.os.Bundle;
 
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Menu;
@@ -18,7 +19,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class InitActivity extends AppCompatActivity{
+public class InitActivity extends AppCompatActivity {
 
     LocationsDBHandler admin;
     SQLiteDatabase db;
@@ -119,7 +120,7 @@ public class InitActivity extends AppCompatActivity{
 
         list.setOnItemLongClickListener (new AdapterView.OnItemLongClickListener() {
             public boolean onItemLongClick(AdapterView parent, View view, int position, long id) {
-                showLat=getLat((int)id);
+                showLat=getLat((int) id);
                 showLon=getLon((int) id);
                 ShowLocationOnMap(view);
                 return true;
@@ -132,6 +133,11 @@ public class InitActivity extends AppCompatActivity{
     public void goToMap(View view) {
             Intent intent = new Intent(this, MapActivity.class);
             startActivityForResult(intent, 1);
+    }
+
+    public void goToSettings(View view) {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
     }
 
     public void ShowLocationOnMap(View view) {
@@ -189,23 +195,21 @@ public class InitActivity extends AppCompatActivity{
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_init, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                goToSettings(findViewById(android.R.id.content));
+                break;
+            case R.id.action_clearRecords:
+                deleteDB();
         }
+        return true;
 
-        return super.onOptionsItemSelected(item);
     }
 }
