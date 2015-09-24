@@ -1,10 +1,9 @@
 package es.pabgarci.mimapa;
 
+import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,24 +12,27 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.StrictMode;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Map;
 
-public class InitActivity extends AppCompatActivity {
+public class InitActivity extends AppCompatActivity{
 
     LocationsDBHandler admin;
     SQLiteDatabase db;
     ListView list;
-    ArrayAdapter<String> adapter;
+    private double showLat;
+    private double showLon;
 
     public int countDB() {
+        int count;
         Cursor c = db.rawQuery("Select * from Locations", null);
-        return c.getCount();
+        count = c.getCount();
+        c.close();
+        return count;
     }
 
     public String[] fillArrayFromDB(){
@@ -42,21 +44,18 @@ public class InitActivity extends AppCompatActivity {
             String address;
             String city;
             String text;
-            String lat;
-            String lon;
-
+            int id;
 
             db = admin.getWritableDatabase();
 
             Cursor c = db.rawQuery("SELECT _id, NAME, ADDRESS, CITY FROM Locations WHERE _id=" + i, null);
             c.moveToFirst();
+            id = c.getInt(0);
             name=c.getString(1);
             address=c.getString(2);
             city=c.getString(3);
-            lat=c.getString(4);
-            lon=c.getString(5);
-
-            text= name + ", " + address + ", " + city;
+            c.close();
+            text= id +".- " + name + ", " + address + ", " + city;
 
             values[i-1] = text;
         }
@@ -64,6 +63,37 @@ public class InitActivity extends AppCompatActivity {
 
         return values;
     }
+
+    public double getLat(int idAux){
+
+        double latAux;
+
+        db = admin.getWritableDatabase();
+
+        Cursor c = db.rawQuery("SELECT LAT FROM Locations WHERE _id=" + idAux, null);
+        c.moveToFirst();
+        latAux=c.getDouble(0);
+        c.close();
+        return latAux;
+
+    }
+
+    public double getLon(int idAux){
+
+        double lonAux;
+
+        db = admin.getWritableDatabase();
+
+        Cursor c = db.rawQuery("SELECT LAT FROM Locations WHERE _id=" + idAux, null);
+        c.moveToFirst();
+        lonAux=c.getDouble(0);
+        c.close();
+
+        return lonAux;
+
+    }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,44 +105,51 @@ public class InitActivity extends AppCompatActivity {
         setContentView(R.layout.activity_init);
         admin = new LocationsDBHandler(this,"Locations", null, 1);
         db = admin.getWritableDatabase();
-        //list = (ListView)findViewById(R.id.listView);
-        //setListView();
+        list = (ListView)findViewById(R.id.listView);
+        setListView();
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
     }
 
     public void setListView(){
 
-        ArrayList<String> valuesList = new ArrayList<String>();
+        ArrayList<String> valuesList = new ArrayList<>();
         valuesList.addAll(Arrays.asList(fillArrayFromDB()));
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, valuesList);
+
+        list.setOnItemLongClickListener (new AdapterView.OnItemLongClickListener() {
+            public boolean onItemLongClick(AdapterView parent, View view, int position, long id) {
+                showLat=getLat((int)id);
+                showLon=getLon((int)id);
+                ShowLocationOnMap(view);
+                return true;
+            }
+        });
 
         list.setAdapter(adapter);
     }
 
     public void goToMap(View view) {
-        Intent intent = new Intent(this, Map.class);
-        startActivityForResult(intent, 1);
+            Intent intent = new Intent(this, MapActivity.class);
+            startActivityForResult(intent, 1);
     }
 
-    public void deleteDB(){
+    public void ShowLocationOnMap(View view) {
+        Intent intentShow = new Intent(this, ShowLocationActivity.class);
+        Bundle b = new Bundle();
+        b.putDouble("SHOWLAT", showLat);
+        b.putDouble("SHOWLON", showLon);
+        intentShow.putExtras(b);
+        startActivity(intentShow);
+    }
+
+    public void deleteDB() {
         db.delete("Locations", null, null);
         setListView();
     }
 
-    public void writeDB(String name, String address, String city, String lat, String lon){
+    public void writeDB(String name, String address, String city, double lat, double lon){
 
         ContentValues registro = new ContentValues();  //es una clase para guardar datos
         registro.put("_id", countDB()+1);
@@ -126,6 +163,7 @@ public class InitActivity extends AppCompatActivity {
 
     }
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
@@ -133,19 +171,18 @@ public class InitActivity extends AppCompatActivity {
         if(requestCode==1) {
 
             if (data != null) {
-
-                String showName = data.getStringExtra("NAME");
-                String showAddress = data.getStringExtra("ADDRESS");
-                String showCity = data.getStringExtra("CITY");
-                String showLat = data.getStringExtra("LAT");
-                String showLon = data.getStringExtra("LON");
-                //mLocationViewLastLocation.setText("Last location:\n" + showName + "\n" + showAddress + ", " + showCity);
+                Bundle b = data.getExtras();
+                String showName = b.getString("NAME");
+                String showAddress = b.getString("ADDRESS");
+                String showCity = b.getString("CITY");
+                showLat = b.getDouble("LAT");
+                showLon = b.getDouble("LON");
                 String show = "Location saved:\n" + showName + "\n" + showAddress + ", " + showCity;
                 Toast.makeText(getApplicationContext(), show, Toast.LENGTH_SHORT).show();
                 writeDB(showName, showAddress, showCity, showLat, showLon);
                 setListView();
 
-            }else if(data==null){
+            }else{
                 Toast.makeText(getApplicationContext(), "Any location saved", Toast.LENGTH_SHORT).show();
             }
         }

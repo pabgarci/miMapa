@@ -14,7 +14,7 @@ public class LocationsDBHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE Locations(_id integer primary key autoincrement, NAME text, ADDRESS text, CITY text, LAT text, LON text);");
+        db.execSQL("CREATE TABLE Locations(_id integer primary key autoincrement, NAME text, ADDRESS text, CITY text, LAT real, LON real);");
     }
 
 

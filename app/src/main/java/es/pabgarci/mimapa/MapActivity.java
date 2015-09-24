@@ -1,4 +1,5 @@
 package es.pabgarci.mimapa;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -32,7 +33,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-
 public class MapActivity extends FragmentActivity implements
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
@@ -40,17 +40,14 @@ public class MapActivity extends FragmentActivity implements
 
     private String textAddress;
     private String textCity;
-    private String textLan;
-    private String textLon;
+    private double textLan;
+    private double textLon;
     private String namePlace;
 
     private TextView mLocationView;
 
     private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,7 +101,7 @@ public class MapActivity extends FragmentActivity implements
     }
 
 
-    public String getAddress(double myLat, double myLng, Location location){
+    public String getAddress(double myLat, double myLng){
 
         Geocoder geoCoder = new Geocoder(this, Locale.getDefault());
         String textAddress = "";
@@ -125,7 +122,7 @@ public class MapActivity extends FragmentActivity implements
     }
 
 
-    public String getCityAndCountryCode(double myLat, double myLng, Location location){
+    public String getCityAndCountryCode(double myLat, double myLng){
 
         Geocoder geoCoder = new Geocoder(this, Locale.getDefault());
         String textCity = "";
@@ -147,17 +144,17 @@ public class MapActivity extends FragmentActivity implements
 
     @Override
     public void onLocationChanged(Location location) {
-        mLocationView.setText(location.toString() + "\nAddress: " + getAddress(location.getLatitude(), location.getLongitude(), location)
-                + ", " + getCityAndCountryCode(location.getLatitude(), location.getLongitude(), location));
+        String toShow = location.toString() + "\nAddress: " + getAddress(location.getLatitude(), location.getLongitude())
+                + ", " + getCityAndCountryCode(location.getLatitude(), location.getLongitude());
+        mLocationView.setText(toShow);
         LatLng myLatLng = new LatLng(location.getLatitude(), location.getLongitude());
         mMap.clear();
         mMap.addMarker(new MarkerOptions().position(myLatLng).title("You are here").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
-        //mMap.moveCamera(CameraUpdateFactory.newLatLng(myLatLng));
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myLatLng,15));
-        textAddress=getAddress(location.getLatitude(), location.getLongitude(), location);
-        textCity=getCityAndCountryCode(location.getLatitude(), location.getLongitude(), location);
-        textLan=String.valueOf(location.getLatitude());
-        textLon=String.valueOf(location.getLongitude());
+        textAddress=getAddress(location.getLatitude(), location.getLongitude());
+        textCity=getCityAndCountryCode(location.getLatitude(), location.getLongitude());
+        textLan=location.getLatitude();
+        textLon=location.getLongitude();
     }
 
 
@@ -176,13 +173,15 @@ public class MapActivity extends FragmentActivity implements
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 namePlace = input.getText().toString();
-                String showAddress = "Location saved:\n" + namePlace + "\n" + textAddress + ", " + textCity;
+                Bundle b = new Bundle();
+                //String showAddress = "Location saved:\n" + namePlace + "\n" + textAddress + ", " + textCity;
                 Intent intent=getIntent();
-                intent.putExtra("NAME", namePlace);
-                intent.putExtra("ADDRESS", textAddress);
-                intent.putExtra("CITY", textCity);
-                intent.putExtra("LAT", textLan);
-                intent.putExtra("LON", textLon);
+                b.putString("NAME", namePlace);
+                b.putString("ADDRESS", textAddress);
+                b.putString("CITY", textCity);
+                b.putDouble("LAT", textLan);
+                b.putDouble("LON", textLon);
+                intent.putExtras(b);
                 setResult(1, intent);
                 finish();
             }

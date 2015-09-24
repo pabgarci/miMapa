@@ -17,6 +17,7 @@
     <string name="text_records">Clean Records</string>
     <string name="text_saveLocation">Save Location</string>
     <string name="text_getLocation">Getting location...</string>
+    <string name="title_activity_show_location">Map</string>
 
 
 
