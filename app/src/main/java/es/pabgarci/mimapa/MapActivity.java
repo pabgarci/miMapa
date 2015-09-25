@@ -3,7 +3,6 @@ package es.pabgarci.mimapa;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.support.v4.app.FragmentActivity;
@@ -20,18 +19,10 @@ import android.location.Location;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.content.res.TypedArray;
-import android.util.AttributeSet;
-import android.view.Gravity;
+
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.RemoteViews;
-
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -53,6 +44,7 @@ public class MapActivity extends FragmentActivity implements
     private double textLan;
     private double textLon;
     private String namePlace;
+    private int state=5;
 
     private TextView mLocationView;
 
@@ -167,6 +159,35 @@ public class MapActivity extends FragmentActivity implements
         textLon=location.getLongitude();
     }
 
+    public void takePhoto(){
+        Intent intent = new Intent(this, CameraActivity.class);
+        startActivityForResult(intent,1);
+        if(state==0){
+            Toast.makeText(getApplicationContext(), "Nothing done", Toast.LENGTH_SHORT).show();
+        }else if(state==1){
+            Toast.makeText(getApplicationContext(), "Photo taked", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(getApplicationContext(), "PROBLEMA", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode==1) {
+
+            if (data != null) {
+                Bundle b = data.getExtras();
+                state = b.getInt("STATE");
+                saveLocation(findViewById(android.R.id.content));
+
+            }else{
+                Toast.makeText(getApplicationContext(), "Any location saved", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
 
     public void saveLocation(View v){
 
@@ -200,9 +221,10 @@ public class MapActivity extends FragmentActivity implements
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
+                takePhoto();
             }
         });
+
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
