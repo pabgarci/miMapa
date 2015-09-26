@@ -3,21 +3,36 @@ package es.pabgarci.mimapa;
 import android.content.Intent;
 import android.hardware.Camera;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 public class CameraActivity extends AppCompatActivity {
 
     private Camera mCamera = null;
-    private CameraView mCameraView = null;
+    Button buttonTakePicture;
 
-    protected void onCreate(Bundle savedInstanceState) {
+    public String getName() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yymmdd_hhmmss");
+        String date = dateFormat.format(new Date());
+        return "miMapa_" + date;
+    }
+
+    public void takePicture(View view){
+        Intent intent = getIntent();
+        setResult(1, intent);
+        finish();
+    }
+
+   protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
 
@@ -27,19 +42,17 @@ public class CameraActivity extends AppCompatActivity {
             Log.d("ERROR", "Failed to get camera: " + e.getMessage());
         }
 
+
         if (mCamera != null) {
-            mCameraView = new CameraView(this, mCamera);//create a SurfaceView to show camera data
+            CameraView mCameraView = new CameraView(this, mCamera);//create a SurfaceView to show camera data
             FrameLayout camera_view = (FrameLayout) findViewById(R.id.camera_view);
             camera_view.addView(mCameraView);//add the SurfaceView to the layout
         }
     }
 
         public void goBack(View view){
-            Bundle b = new Bundle();
             Intent intent = getIntent();
-            b.putInt("STATE", 0);
-            intent.putExtras(b);
-            setResult(1, intent);
+            setResult(0, intent);
             finish();
     }
 

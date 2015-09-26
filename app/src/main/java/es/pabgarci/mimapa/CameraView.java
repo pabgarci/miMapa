@@ -7,6 +7,8 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class CameraView extends SurfaceView implements SurfaceHolder.Callback{
 
@@ -23,6 +25,7 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback{
         mHolder.addCallback(this);
         mHolder.setType(SurfaceHolder.SURFACE_TYPE_NORMAL);
     }
+
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
         try{

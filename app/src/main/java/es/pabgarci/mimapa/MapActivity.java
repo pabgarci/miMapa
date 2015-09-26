@@ -162,13 +162,6 @@ public class MapActivity extends FragmentActivity implements
     public void takePhoto(){
         Intent intent = new Intent(this, CameraActivity.class);
         startActivityForResult(intent,1);
-        if(state==0){
-            Toast.makeText(getApplicationContext(), "Nothing done", Toast.LENGTH_SHORT).show();
-        }else if(state==1){
-            Toast.makeText(getApplicationContext(), "Photo taked", Toast.LENGTH_SHORT).show();
-        }else{
-            Toast.makeText(getApplicationContext(), "PROBLEMA", Toast.LENGTH_SHORT).show();
-        }
     }
 
     @Override
@@ -176,15 +169,10 @@ public class MapActivity extends FragmentActivity implements
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode==1) {
-
-            if (data != null) {
-                Bundle b = data.getExtras();
-                state = b.getInt("STATE");
-                saveLocation(findViewById(android.R.id.content));
-
-            }else{
-                Toast.makeText(getApplicationContext(), "Any location saved", Toast.LENGTH_SHORT).show();
-            }
+            Toast.makeText(getApplicationContext(), "Photo", Toast.LENGTH_SHORT).show();
+        }
+        if(requestCode==0) {
+            Toast.makeText(getApplicationContext(), "Cancel", Toast.LENGTH_SHORT).show();
         }
     }
 

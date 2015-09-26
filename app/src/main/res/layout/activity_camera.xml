@@ -22,6 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
         android:layout_margin="30dp"
+        android:onClick="takePicture"
         android:src="@android:drawable/ic_menu_camera" />
 
 </android.support.design.widget.CoordinatorLayout>
