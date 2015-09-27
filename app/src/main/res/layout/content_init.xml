@@ -31,7 +31,6 @@
         android:textColor="#FFFFFF"
 
 
-
-        android:background="@drawable/buttonshape"/>
+/>
 
 </RelativeLayout>
