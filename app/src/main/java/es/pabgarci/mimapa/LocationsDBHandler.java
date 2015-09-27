@@ -14,13 +14,13 @@ public class LocationsDBHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE Locations(_id integer primary key autoincrement, NAME text, ADDRESS text, CITY text, LAT real, LON real);");
+        db.execSQL("CREATE TABLE Locations(_id integer primary key autoincrement, NAME text, ADDRESS text, CITY text, LAT real, LON real, PHOTOLOCATION text);");
     }
 
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int lastVersion, int newVersion) {
         db.execSQL("drop table if exists Locations");
-        db.execSQL("create table Locations(_id integer primary key, NAME text, ADDRESS text, CITY text, LAT text, LON text);");
+        db.execSQL("create table Locations(_id integer primary key autoincrement, NAME text, ADDRESS text, CITY text, LAT text, LON text, PHOTOLOCATION text);");
     }
 }

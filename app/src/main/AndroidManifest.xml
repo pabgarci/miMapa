@@ -11,9 +11,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-    <uses-feature
-        android:name="android.hardware.camera"
-        android:required="true" />
+    <uses-feature android:name="android.hardware.camera" />
 
     <application
         android:allowBackup="true"
@@ -61,8 +59,8 @@
             android:label="@string/title_activity_settings" >
         </activity>
         <activity
-            android:name=".CameraActivity"
-            android:label="@string/title_activity_camera"
+            android:name=".LocationDetailsActivity"
+            android:label="@string/title_activity_location_details"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
     </application>

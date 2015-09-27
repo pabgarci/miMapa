@@ -2,8 +2,8 @@ package es.pabgarci.mimapa;
 
 import android.os.Bundle;
 
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -34,6 +35,7 @@ public class InitActivity extends AppCompatActivity {
         c.close();
         return count;
     }
+
 
     public String[] fillArrayFromDB(){
         String values[] = new String[countDB()];
@@ -57,11 +59,39 @@ public class InitActivity extends AppCompatActivity {
             c.close();
             text= id +".- " + name + ", " + address + ", " + city;
 
-            values[i-1] = text;
+            values[i-1]= text;
         }
 
 
         return values;
+    }
+
+    public String getName(int idAux){
+
+        String nameAux;
+
+        db = admin.getWritableDatabase();
+
+        Cursor c = db.rawQuery("SELECT NAME FROM Locations WHERE _id=" + idAux, null);
+        c.moveToFirst();
+        nameAux=c.getString(0);
+        c.close();
+        return nameAux;
+
+    }
+
+    public String getAddressAndCity(int idAux){
+
+        String nameAddress;
+        String nameCity;
+
+        db = admin.getWritableDatabase();
+        Cursor c = db.rawQuery("SELECT ADDRESS, CITY FROM Locations WHERE _id=" + idAux, null);
+        c.moveToFirst();
+        nameAddress=c.getString(0);
+        nameCity=c.getString(1);
+        c.close();
+        return nameAddress + ", "+ nameCity;
     }
 
     public double getLat(int idAux){
@@ -93,13 +123,26 @@ public class InitActivity extends AppCompatActivity {
 
     }
 
+    public String getPhotoLocation(int idAux){
 
+        String photoAux;
+
+        db = admin.getWritableDatabase();
+
+        Cursor c = db.rawQuery("SELECT PHOTOLOCATION FROM Locations WHERE _id=" + idAux, null);
+        c.moveToFirst();
+        photoAux=c.getString(0);
+        c.close();
+        return photoAux;
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_init);
@@ -110,19 +153,29 @@ public class InitActivity extends AppCompatActivity {
 
     }
 
-    public void setListView(){
+    public void goToLocationDetails(int id){
+        Intent intent = new Intent(this, LocationDetailsActivity.class);
+        Bundle b = new Bundle();
+        b.putString("SHOWNAME", getName(id));
+        b.putString("SHOWADDRESS",getAddressAndCity(id));
+        b.putDouble("SHOWLAT", getLat(id));
+        b.putDouble("SHOWLON", getLon(id));
+        b.putString("PHOTOLOCATION",getPhotoLocation(id));
+        intent.putExtras(b);
+        startActivity(intent);
 
+    }
+
+    public void setListView(){
         ArrayList<String> valuesList = new ArrayList<>();
         valuesList.addAll(Arrays.asList(fillArrayFromDB()));
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, valuesList);
 
-        list.setOnItemLongClickListener (new AdapterView.OnItemLongClickListener() {
+        list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             public boolean onItemLongClick(AdapterView parent, View view, int position, long id) {
-                showLat=getLat((int) id);
-                showLon=getLon((int) id);
-                ShowLocationOnMap(view);
+                goToLocationDetails((int)id+1);
                 return true;
             }
         });
@@ -140,21 +193,12 @@ public class InitActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void ShowLocationOnMap(View view) {
-        Intent intentShow = new Intent(this, ShowLocationActivity.class);
-        Bundle b = new Bundle();
-        b.putDouble("SHOWLAT", showLat);
-        b.putDouble("SHOWLON", showLon);
-        intentShow.putExtras(b);
-        startActivity(intentShow);
-    }
-
     public void deleteDB() {
         db.delete("Locations", null, null);
         setListView();
     }
 
-    public void writeDB(String name, String address, String city, double lat, double lon){
+    public void writeDB(String name, String address, String city, double lat, double lon, String photoLocation){
 
         ContentValues registro = new ContentValues();  //es una clase para guardar datos
         registro.put("_id", countDB()+1);
@@ -163,6 +207,7 @@ public class InitActivity extends AppCompatActivity {
         registro.put("CITY", city);
         registro.put("LAT", lat);
         registro.put("LON", lon);
+        registro.put("PHOTOLOCATION",photoLocation);
         db.insert("Locations", null, registro);
         setListView();
 
@@ -182,9 +227,11 @@ public class InitActivity extends AppCompatActivity {
                 String showCity = b.getString("CITY");
                 showLat = b.getDouble("LAT");
                 showLon = b.getDouble("LON");
+                String photoLocation = b.getString("PHOTO_LOCATION");
                 String show = "Location saved:\n" + showName + "\n" + showAddress + ", " + showCity;
                 Toast.makeText(getApplicationContext(), show, Toast.LENGTH_SHORT).show();
-                writeDB(showName, showAddress, showCity, showLat, showLon);
+                Toast.makeText(getApplicationContext(), ""+photoLocation , Toast.LENGTH_SHORT).show();
+                writeDB(showName, showAddress, showCity, showLat, showLon, photoLocation);
                 setListView();
 
             }else{

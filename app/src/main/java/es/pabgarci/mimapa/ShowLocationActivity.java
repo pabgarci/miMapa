@@ -21,7 +21,6 @@ public class ShowLocationActivity extends FragmentActivity implements OnMapReady
         setContentView(R.layout.activity_show_location);
         setUpMapIfNeeded();
 
-
         Bundle extraInfo = getIntent().getExtras();
 
         if(extraInfo==null){

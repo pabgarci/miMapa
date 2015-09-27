@@ -79,6 +79,7 @@
 
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="title_activity_camera">CameraActivity</string>
+    <string name="title_activity_location_details">LocationDetailsActivity</string>
 
 
 

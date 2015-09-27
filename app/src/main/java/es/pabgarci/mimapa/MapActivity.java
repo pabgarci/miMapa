@@ -3,8 +3,11 @@ package es.pabgarci.mimapa;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.location.Address;
 import android.location.Geocoder;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
@@ -22,7 +25,6 @@ import android.view.View;
 
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -30,7 +32,12 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -43,13 +50,37 @@ public class MapActivity extends FragmentActivity implements
     private String textCity;
     private double textLan;
     private double textLon;
-    private String namePlace;
-    private int state=5;
 
     private TextView mLocationView;
 
     private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
+
+    private final String PHOTOS_FOLDER = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/miMapa/";
+    //private File directory = new File(PHOTOS_FOLDER);
+
+    public String getName() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyMMdd_hhmmss");
+        String date = dateFormat.format(new Date());
+        return "miMapa_" + date;
+    }
+
+
+    protected void saveAndGoBack(String namePlace, String textAddress, String textCity, double textLan, double textLon, String photoLocation){
+
+                    Bundle b = new Bundle();
+                    Intent intent = getIntent();
+                    b.putString("NAME", namePlace);
+                    b.putString("ADDRESS", textAddress);
+                    b.putString("CITY", textCity);
+                    b.putDouble("LAT", textLan);
+                    b.putDouble("LON", textLon);
+                    b.putString("PHOTO_LOCATION", photoLocation);
+                    intent.putExtras(b);
+                    setResult(1, intent);
+                    finish();
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -159,26 +190,7 @@ public class MapActivity extends FragmentActivity implements
         textLon=location.getLongitude();
     }
 
-    public void takePhoto(){
-        Intent intent = new Intent(this, CameraActivity.class);
-        startActivityForResult(intent,1);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(requestCode==1) {
-            Toast.makeText(getApplicationContext(), "Photo", Toast.LENGTH_SHORT).show();
-        }
-        if(requestCode==0) {
-            Toast.makeText(getApplicationContext(), "Cancel", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-
-    public void saveLocation(View v){
-
+    public void saveLocationWithPhoto(final String photoLocation){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Enter location name");
         builder.setIcon(android.R.drawable.ic_menu_save);
@@ -191,19 +203,9 @@ public class MapActivity extends FragmentActivity implements
         builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                namePlace = input.getText().toString();
-                Bundle b = new Bundle();
-                Intent intent = getIntent();
-                b.putString("NAME", namePlace);
-                b.putString("ADDRESS", textAddress);
-                b.putString("CITY", textCity);
-                b.putDouble("LAT", textLan);
-                b.putDouble("LON", textLon);
-                intent.putExtras(b);
-                setResult(1, intent);
-                finish();
-                    }
-                });
+                saveAndGoBack(input.getText().toString(), textAddress, textCity, textLan, textLon, photoLocation);
+            }
+        });
 
         builder.setNeutralButton("Take photo", new DialogInterface.OnClickListener() {
 
@@ -222,6 +224,94 @@ public class MapActivity extends FragmentActivity implements
 
         builder.show();
     }
+
+    public void takePhoto(){
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, 1);
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+        String file = PHOTOS_FOLDER + getName() + ".jpg";
+        if(requestCode==1) {
+            if (data != null) {
+                Bitmap bitmap = (Bitmap)data.getExtras().get("data");
+                File picture = new File(file);
+                try {
+                    FileOutputStream fileOutputStream = new FileOutputStream(picture);
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fileOutputStream);
+                    fileOutputStream.flush();
+                    fileOutputStream.close();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            saveLocationWithPhoto(file);
+        }
+    }
+
+    public void saveLocation(View v){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Do you want to take a picture for this location?");
+        builder.setIcon(android.R.drawable.ic_menu_save);
+
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                takePhoto();
+            }
+
+
+        });
+
+        builder.setNegativeButton("No (Save without picture)", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                saveLocationWithoutPhoto();
+            }
+        });
+
+        builder.show();
+
+    }
+
+
+    public void saveLocationWithoutPhoto(){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Enter location name");
+        builder.setIcon(android.R.drawable.ic_menu_save);
+
+        final EditText input = new EditText(this);
+
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        builder.setView(input);
+
+        builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                saveAndGoBack(input.getText().toString(),textAddress,textCity,textLan,textLon,"NO");
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
+    }
+
+
+
+
 
     @Override
     protected void onResume() {
