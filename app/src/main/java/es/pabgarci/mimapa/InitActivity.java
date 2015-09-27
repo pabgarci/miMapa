@@ -1,8 +1,8 @@
 package es.pabgarci.mimapa;
 
+import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Bundle;
-
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Menu;
@@ -18,6 +18,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Locale;
 
 public class InitActivity extends AppCompatActivity {
 
@@ -107,6 +108,22 @@ public class InitActivity extends AppCompatActivity {
         db = admin.getWritableDatabase();
         list = (ListView)findViewById(R.id.listView);
         setListView();
+
+        String languageToLoad  = Locale.getDefault().getLanguage();
+
+        Locale locale = new Locale (languageToLoad);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config,
+                getBaseContext().getResources().getDisplayMetrics());
+
+        Context context = getApplicationContext();
+        CharSequence textLanguage = languageToLoad;
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, textLanguage, duration);
+        toast.show();
 
     }
 
