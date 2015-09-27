@@ -29,6 +29,11 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:onClick="goToMap" />
+        android:onClick="goToMap"
+        android:textColor="#FFFFFF"
+
+
+
+        android:background="@drawable/buttonshape"/>
 
 </RelativeLayout>
