@@ -15,23 +15,15 @@ android:id="@+id/textGPS"
 android:layout_centerVertical="true"
 android:layout_centerHorizontal="true" />
 
-<Button
-style="?android:attr/buttonStyleSmall"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:layout_gravity="center|bottom"
-android:textColor="#FFFFFF"
-android:textSize="25sp"
-android:shadowColor="#8a6603"
-android:text="@string/text_saveLocation"
-android:onClick="saveLocation"
-android:id="@+id/buttonGoToMap"
-android:shadowDx="3"
-android:shadowDy="2"
-android:shadowRadius="5"
-android:background="#28727D"
-android:padding="10sp"
-android:layout_marginTop="20sp"
-android:layout_alignParentStart="true"
-android:layout_alignParentEnd="true"/>
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/text_saveLocation"
+        android:layout_gravity="center|bottom"
+        android:padding="10sp"
+        android:id="@+id/buttonGoToMap"
+        android:background="@drawable/button"
+        android:onClick="saveLocation" />
 </fragment>

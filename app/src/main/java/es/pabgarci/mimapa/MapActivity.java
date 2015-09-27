@@ -207,13 +207,6 @@ public class MapActivity extends FragmentActivity implements
             }
         });
 
-        builder.setNeutralButton("Take photo", new DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                takePhoto();
-            }
-        });
 
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override

@@ -58,9 +58,17 @@ public class LocationDetailsActivity extends AppCompatActivity {
         String textAux = "Lat: "+showLat+", Lon: "+showLon;
         detailsLatLon.setText(textAux);
 
+        Toast.makeText(getApplicationContext(), ""+photoLocation, Toast.LENGTH_SHORT).show();
+
         Display display = getWindowManager().getDefaultDisplay();
-        Bitmap bitMapScaled = Bitmap.createScaledBitmap(getImageFromSD(photoLocation), display.getWidth(), display.getHeight() - 350, true);
-        detailsImage.setImageBitmap(bitMapScaled);
+        assert photoLocation != null;
+        if(photoLocation.equals("NO")) {
+            detailsImage.setImageResource(R.drawable.nophoto);
+        }else{
+            Bitmap bitMapScaled = Bitmap.createScaledBitmap(getImageFromSD(photoLocation), display.getWidth(), display.getHeight() - 350, true);
+            detailsImage.setImageBitmap(bitMapScaled);
+        }
+
 
     }
 
