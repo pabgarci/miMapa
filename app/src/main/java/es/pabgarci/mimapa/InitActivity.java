@@ -22,6 +22,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+//test comment
 public class InitActivity extends AppCompatActivity {
 
     LocationsDBHandler admin;
