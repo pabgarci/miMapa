@@ -1,5 +1,6 @@
 package es.pabgarci.mimapa;
 
+import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
 
@@ -21,6 +22,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Locale;
 
 //test comment
 public class InitActivity extends AppCompatActivity {
@@ -151,6 +153,21 @@ public class InitActivity extends AppCompatActivity {
         db = admin.getWritableDatabase();
         list = (ListView) findViewById(R.id.listView);
         setListView();
+
+        String languageToLoad  = Locale.getDefault().getLanguage();
+        Locale locale = new Locale (languageToLoad);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config,
+                getBaseContext().getResources().getDisplayMetrics());
+
+        Context context = getApplicationContext();
+        CharSequence text = languageToLoad;
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
     }
 
     public void goToLocationDetails(int id) {
