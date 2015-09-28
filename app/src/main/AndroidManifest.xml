@@ -22,7 +22,8 @@
         <activity
             android:name=".InitActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme" >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -43,16 +44,18 @@
 
         <activity
             android:name=".MapActivity"
-            android:label="@string/title_activity_map" >
+            android:label="@string/title_activity_map"
+            android:theme="@style/AppTheme">
         </activity>
         <activity
             android:name=".LocationsDBHandler"
             android:label="@string/title_activity_locations_dbhandler"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme" >
         </activity>
         <activity
             android:name=".ShowLocationActivity"
-            android:label="@string/title_activity_show_location" >
+            android:label="@string/title_activity_show_location"
+            android:theme="@style/AppTheme">
         </activity>
         <activity
             android:name=".SettingsActivity"
@@ -61,12 +64,7 @@
         <activity
             android:name=".LocationDetailsActivity"
             android:label="@string/title_activity_location_details"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
-        <activity
-            android:name=".NavigationActivity"
-            android:label="@string/title_activity_navigation"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme" >
         </activity>
     </application>
 
