@@ -58,7 +58,11 @@ public class LocationDetailsActivity extends AppCompatActivity {
         String textAux = "Lat: "+showLat+", Lon: "+showLon;
         detailsLatLon.setText(textAux);
 
-        Toast.makeText(getApplicationContext(), ""+photoLocation, Toast.LENGTH_SHORT).show();
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar_details);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setIcon(R.mipmap.ic_launcher);
+        getSupportActionBar().setTitle("miMapa");
+        getSupportActionBar().setSubtitle("Detalles de localización");
 
         Display display = getWindowManager().getDefaultDisplay();
         assert photoLocation != null;

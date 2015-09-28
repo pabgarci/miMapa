@@ -1,11 +1,9 @@
 package es.pabgarci.mimapa;
 
-import android.content.res.Configuration;
 import android.os.Bundle;
 
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,12 +20,12 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-//test comment
 public class InitActivity extends AppCompatActivity {
 
     LocationsDBHandler admin;
     SQLiteDatabase db;
     ListView list;
+    Toolbar toolbar;
 
     public int countDB() {
         int count;
@@ -151,6 +149,12 @@ public class InitActivity extends AppCompatActivity {
         db = admin.getWritableDatabase();
         list = (ListView) findViewById(R.id.listView);
         setListView();
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setIcon(R.mipmap.ic_launcher);
+        getSupportActionBar().setTitle("miMapa");
+        getSupportActionBar().setSubtitle("Inicio");
     }
 
     public void goToLocationDetails(int id) {
@@ -188,10 +192,10 @@ public class InitActivity extends AppCompatActivity {
         startActivityForResult(intent, 1);
     }
 
-    /*public void goToSettings(View view) {
+    public void goToSettings(View view) {
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
-    }*/
+    }
 
     public void deleteDB() {
         db.delete("Locations", null, null);
@@ -254,7 +258,7 @@ public class InitActivity extends AppCompatActivity {
 
             switch (item.getItemId()) {
                 case R.id.action_settings:
-                    //goToSettings(findViewById(android.R.id.content));
+                   goToSettings(findViewById(android.R.id.content));
                     break;
                 case R.id.action_clearRecords:
                     deleteDB();
