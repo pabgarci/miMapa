@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.location.Address;
 import android.location.Geocoder;
@@ -90,11 +91,30 @@ public class MapActivity extends FragmentActivity implements
 
     }
 
+    public void setLanguage(){
+        PreferenceManager.setDefaultValues(this, R.xml.pref_general, false);
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        String languageToLoad  = Locale.getDefault().getLanguage();
+        String languageSetings = sharedPref.getString("pref_language", "no");
+        Locale locale;
+        Configuration config = new Configuration();
+        if(languageSetings.equals(languageToLoad)) {
+            locale= new Locale (languageToLoad);
+        }else if(languageSetings.equals("auto")){
+            locale= new Locale (languageToLoad);
+        }else{
+            locale= new Locale (languageSetings);
+        }
+        Locale.setDefault(locale);
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config,
+                getBaseContext().getResources().getDisplayMetrics());
+    }
+
     //Opens the map and starts gps
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_map);
 
         mLocationView = (TextView) findViewById(R.id.textGPS);
@@ -316,6 +336,7 @@ public class MapActivity extends FragmentActivity implements
 
     @Override
     protected void onResume() {
+        setLanguage();
         super.onResume();
         setUpMapIfNeeded();
     }
