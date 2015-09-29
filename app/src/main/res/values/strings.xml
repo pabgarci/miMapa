@@ -26,6 +26,14 @@
     <string name="save_location_photo_save">Save</string>
     <string name="save_location_photo_cancel">Cancel</string>
 
+
+    <string name="settings_theme">Theme</string>
+    <string name="settings_color">Color</string>
+    <string name="settings_storage">Storage</string>
+    <string name="settings_take_photo">Take fotograph</string>
+    <string name="settings_language">Language</string>
+    <string name="settings_change_language">Change language</string>
+    
     <string-array name="pref_color">
         <item >Green</item>
         <item>Orange</item>

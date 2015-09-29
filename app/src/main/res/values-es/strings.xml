@@ -25,6 +25,13 @@
     <string name="text_you_are_here">Usted está aqui</string>
     <string name="text_address">Dirección</string>
 
+    <string name="settings_theme">Tema</string>
+    <string name="settings_color">Color</string>
+    <string name="settings_storage">Almacenimiento</string>
+    <string name="settings_take_photo">Tomar fotograía</string>
+    <string name="settings_language">Idoma</string>
+    <string name="settings_change_language">Cambiar idioma</string>
+
 
     <string-array name="pref_color">
         <item >Verde</item>

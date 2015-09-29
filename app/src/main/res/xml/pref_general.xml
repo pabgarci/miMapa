@@ -1,11 +1,11 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory
-        android:title="Tema">
+        android:title="@string/settings_theme">
 
         <ListPreference
             android:key="pref_color"
-            android:title="Color"
+            android:title="@string/settings_color"
             android:defaultValue="Green"
             android:entries="@array/pref_color"
             android:entryValues="@array/pref_color_values"
@@ -13,20 +13,20 @@
             android:positiveButtonText="@null" />
     </PreferenceCategory>
     <PreferenceCategory
-        android:title="Almacenamiento">
+        android:title="@string/settings_storage">
 <SwitchPreference
     android:key="data_storage"
-    android:title="Tomar fotografías"
+    android:title="@string/settings_take_photo"
     android:defaultValue="true"
 />
 </PreferenceCategory>
 
     <PreferenceCategory
-        android:title="Idioma">
+        android:title="@string/settings_language">
 
         <ListPreference
             android:key="pref_language"
-            android:title="Cambiar idioma"
+            android:title="@string/settings_change_language"
             android:defaultValue="en"
             android:entries="@array/pref_language"
             android:entryValues="@array/pref_language_values"
