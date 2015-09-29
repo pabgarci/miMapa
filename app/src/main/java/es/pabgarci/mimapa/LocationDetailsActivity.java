@@ -4,15 +4,12 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Display;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -58,7 +55,11 @@ public class LocationDetailsActivity extends AppCompatActivity {
         String textAux = "Lat: "+showLat+", Lon: "+showLon;
         detailsLatLon.setText(textAux);
 
-        Toast.makeText(getApplicationContext(), ""+photoLocation, Toast.LENGTH_SHORT).show();
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar_details);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setIcon(R.mipmap.ic_launcher);
+        getSupportActionBar().setTitle("miMapa");
+        getSupportActionBar().setSubtitle("Detalles de localización");
 
         Display display = getWindowManager().getDefaultDisplay();
         assert photoLocation != null;

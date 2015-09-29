@@ -1,12 +1,15 @@
 package es.pabgarci.mimapa;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -62,7 +65,7 @@ public class MapActivity extends FragmentActivity implements
     public String getName() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyMMdd_hhmmss");
         String date = dateFormat.format(new Date());
-        return "miMapa " + date;
+        return "miMapa_" + date;
     }
 
 
@@ -121,6 +124,8 @@ public class MapActivity extends FragmentActivity implements
 
         LocationServices.FusedLocationApi.requestLocationUpdates(
                 mGoogleApiClient, mLocationRequest, this);
+
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
     }
 
     @Override
@@ -254,11 +259,12 @@ public class MapActivity extends FragmentActivity implements
 
         builder.setPositiveButton(R.string.save_location_yes, new DialogInterface.OnClickListener() {
 
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                takePhoto();
-            }
+            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    takePhoto();
+                }
 
         });
 
@@ -269,8 +275,17 @@ public class MapActivity extends FragmentActivity implements
             }
         });
 
-        builder.show();
+            builder.setNegativeButton("No (Save without picture)", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    saveLocationWithoutPhoto();
+                }
+            });
 
+            builder.show();
+        }else if(!sharedPref.getBoolean("data_storage", true)){
+            saveLocationWithoutPhoto();
+        }
     }
 
 

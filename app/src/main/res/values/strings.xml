@@ -1,5 +1,8 @@
 <resources>
-    <string name="app_name">miMapa</string>
+    <string name="app_name">miMapaEN</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_map">Map</string>
+    <string name="title_activity_locations_dbhandler">LocationsDBHandler</string>
 
     <string name="button_add_location">Add location</string>
     <string name="button_show_location_map">Show location on map</string>
@@ -17,7 +20,60 @@
     <string name="save_location_photo_title">Enter location name</string>
     <string name="save_location_photo_save">Save</string>
     <string name="save_location_photo_cancel">Cancel</string>
+    <string name="title_activity_internet_status">InternetStatus</string>
+    <string name="color_toolbar">"@color/color_green_dark"</string>
+    <string name="text_app_name">miMapa</string>
+    <string name="text_map">Open Map</string>
+    <string name="text_back">Go Back</string>
+    <string name="text_records">Clean Records</string>
+    <string name="text_saveLocation">Save Location</string>
+    <string name="text_getLocation">Getting location...</string>
+    <string name="title_activity_show_location">Map</string>
+    <string name="title_activity_settings">Settings</string>
 
+    <string-array name="pref_color">
+        <item >Green</item>
+        <item>Orange</item>
+    </string-array>
+
+    <string-array name="pref_language">
+        <item>Auto</item>
+        <item >English</item>
+        <item>Español</item>
+        <item>Norsk</item>
+    </string-array>
+
+    <string-array name="pref_language_values">
+        <item>auto</item>
+        <item >en</item>
+        <item>es</item>
+        <item>no</item>
+    </string-array>
+
+    <string name="pref_header_general">General</string>
+
+
+    <string name="pref_title_display_name">Display name</string>
+    <string name="pref_default_display_name">John Smith</string>
+
+    <string name="pref_header_data">Data</string>
+
+
+    <string name="pref_title_system_sync_settings">System sync settings</string>
+
+    <string name="pref_header_language">Language</string>
+
+    <string name="pref_title_ringtone">Ringtone</string>
+    <string name="pref_ringtone_silent">Silent</string>
+
+    <string name="pref_title_vibrate">Vibrate</string>
+    <string name="title_activity_camera">CameraActivity</string>
+    <string name="title_activity_location_details">miMapa - Location details</string>
+    <string name="title_activity_navigation">NavigationActivity</string>
+
+
+    <string name="drawer_open">open</string>
+    <string name="drawer_close">close</string>
     <string name="text_location_saved">Location saved</string>
     <string name="text_no_location">No location saved</string>
     <string name="text_you_are_here">You are here</string>
