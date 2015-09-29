@@ -205,10 +205,10 @@ public class InitActivity extends AppCompatActivity {
         startActivityForResult(intent, 1);
     }
 
-    /*public void goToSettings(View view) {
+    public void goToSettings(View view) {
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
-    }*/
+    }
 
     public void deleteDB() {
         db.delete("Locations", null, null);
@@ -255,7 +255,7 @@ public class InitActivity extends AppCompatActivity {
                 setListView();
 
             } else {
-                Toast.makeText(getApplicationContext(), "Any location saved", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "No location saved", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -271,7 +271,7 @@ public class InitActivity extends AppCompatActivity {
 
             switch (item.getItemId()) {
                 case R.id.action_settings:
-                    //goToSettings(findViewById(android.R.id.content));
+                    goToSettings(findViewById(android.R.id.content));
                     break;
                 case R.id.action_clearRecords:
                     deleteDB();
