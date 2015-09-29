@@ -347,7 +347,9 @@ public class MapActivity extends FragmentActivity implements
                 File picture = new File(file);
                 try {
                     FileOutputStream fileOutputStream = new FileOutputStream(picture);
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fileOutputStream);
+
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fileOutputStream);
+
                     fileOutputStream.flush();
                     fileOutputStream.close();
                 }catch (IOException e) {
