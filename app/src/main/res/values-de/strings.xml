@@ -1,0 +1,74 @@
+<resources>
+    //test
+    <string name="app_name">miMapa</string>
+    <string name="app_surname">Menü</string>
+
+    <string name="action_settings">Einstellungen</string>
+    <string name="action_clearRecords">Einträge löschen</string>
+    <string name="title_activity_map">Karte</string>
+    <string name="title_activity_settings">Einstellungen</string>
+    <string name="title_activity_location_details">Standort details</string>
+
+
+    <string name="button_add_location">Standort hinzufügen</string>
+    <string name="button_show_location_map">Standort auf der Karte anzeigen</string>
+    <string name="text_getLocation">Ermittle Standort</string>
+    <string name="button_saveLocation">Standort speichern</string>
+
+    <string name="save_location_title">Wllst du ein Bild für diesen Standort speichern?</string>
+    <string name="save_location_yes">Ja</string>
+    <string name="save_location_no">Nein (ohne Bild speichern)</string>
+
+    <string name="save_location_noPhoto_title">Name des Standorts eingeben</string>
+    <string name="save_location_noPhoto_save">Speichern</string>
+    <string name="save_location_noPhoto_cancel">Abbrechen</string>
+
+    <string name="save_location_photo_title">Name des Standorts eingeben</string>
+    <string name="save_location_photo_save">Speichern</string>
+    <string name="save_location_photo_cancel">Abbrechen</string>
+
+
+    <string name="settings_theme">Thema</string>
+    <string name="settings_color">Farbe</string>
+    <string name="settings_storage">Speicheroptionen</string>
+    <string name="settings_take_photo">Bild aufnehmen</string>
+    <string name="settings_language">Sprache</string>
+    <string name="settings_change_language">Sprache ändern</string>
+
+    
+    <string-array name="pref_color">
+        <item >Grün</item>
+        <item>Orange</item>
+    </string-array>
+
+    <string-array name="pref_color_values">
+        <item >Green</item>
+        <item>Orange</item>
+    </string-array>
+
+
+    <string-array name="pref_language">
+        <item>Auto</item>
+        <item >Englisch</item>
+        <item>Spanisch</item>
+        <item>Deutsch</item>
+        <item>Norwegisch</item>
+    </string-array>
+
+    <string-array name="pref_language_values">
+        <item>auto</item>
+        <item >en</item>
+        <item>es</item>
+        <item>de</item>
+        <item>no</item>
+    </string-array>
+
+    <string name="text_location_saved">Standort gespeichert</string>
+    <string name="text_no_location">Standort nicht gespeichert</string>
+    <string name="text_you_are_here">Du bist hier</string>
+    <string name="text_address">Adresse</string>
+    <string name="title_activity_show_location">Karte</string>
+
+
+
+</resources>
