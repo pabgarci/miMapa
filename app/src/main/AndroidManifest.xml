@@ -46,11 +46,7 @@
             android:label="@string/title_activity_map"
             android:theme="@style/AppThemeGreen" >
         </activity>
-        <activity
-            android:name=".LocationsDBHandler"
-            android:label="@string/title_activity_locations_dbhandler"
-            android:theme="@style/AppThemeGreen" >
-        </activity>
+
         <activity
             android:name=".ShowLocationActivity"
             android:label="@string/title_activity_show_location"
