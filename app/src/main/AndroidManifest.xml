@@ -48,11 +48,6 @@
         </activity>
 
         <activity
-            android:name=".ShowLocationActivity"
-            android:label="@string/title_activity_show_location"
-            android:theme="@style/AppTheme" >
-        </activity>
-        <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings" >
         </activity>

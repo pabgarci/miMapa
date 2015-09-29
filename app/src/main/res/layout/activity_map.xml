@@ -18,7 +18,7 @@ android:layout_centerHorizontal="true" />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/text_saveLocation"
+        android:text="@string/button_saveLocation"
         android:layout_gravity="center|bottom"
         android:padding="10sp"
         android:id="@+id/buttonGoToMap"

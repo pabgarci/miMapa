@@ -62,7 +62,7 @@ public class MapActivity extends FragmentActivity implements
     public String getName() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyMMdd_hhmmss");
         String date = dateFormat.format(new Date());
-        return "miMapa_" + date;
+        return "miMapa " + date;
     }
 
 
@@ -177,13 +177,13 @@ public class MapActivity extends FragmentActivity implements
 
     @Override
     public void onLocationChanged(Location location) {
-        String toShow = location.toString() + "\nAddress: " + getAddress(location.getLatitude(), location.getLongitude())
+        String toShow = location.toString() + "\n" + R.string.text_address +": " + getAddress(location.getLatitude(), location.getLongitude())
                 + ", " + getCityAndCountryCode(location.getLatitude(), location.getLongitude());
         mLocationView.setText(toShow);
         LatLng myLatLng = new LatLng(location.getLatitude(), location.getLongitude());
         mMap.clear();
-        mMap.addMarker(new MarkerOptions().position(myLatLng).title("You are here").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myLatLng,15));
+        mMap.addMarker(new MarkerOptions().position(myLatLng).title(getResources().getString(R.string.text_you_are_here)).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myLatLng, 15));
         textAddress=getAddress(location.getLatitude(), location.getLongitude());
         textCity=getCityAndCountryCode(location.getLatitude(), location.getLongitude());
         textLan=location.getLatitude();
@@ -192,7 +192,7 @@ public class MapActivity extends FragmentActivity implements
 
     public void saveLocationWithPhoto(final String photoLocation){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Enter location name");
+        builder.setTitle(R.string.save_location_photo_title);
         builder.setIcon(android.R.drawable.ic_menu_save);
 
         final EditText input = new EditText(this);
@@ -200,14 +200,14 @@ public class MapActivity extends FragmentActivity implements
         input.setInputType(InputType.TYPE_CLASS_TEXT);
         builder.setView(input);
 
-        builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.save_location_photo_save, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 saveAndGoBack(input.getText().toString(), textAddress, textCity, textLan, textLon, photoLocation);
             }
         });
 
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(R.string.save_location_photo_cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
@@ -248,10 +248,11 @@ public class MapActivity extends FragmentActivity implements
 
     public void saveLocation(View v){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Do you want to take a picture for this location?");
+
+        builder.setTitle(R.string.save_location_title);
         builder.setIcon(android.R.drawable.ic_menu_save);
 
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.save_location_yes, new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -261,7 +262,7 @@ public class MapActivity extends FragmentActivity implements
 
         });
 
-        builder.setNegativeButton("No (Save without picture)", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(R.string.save_location_no, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 saveLocationWithoutPhoto();
@@ -276,7 +277,7 @@ public class MapActivity extends FragmentActivity implements
     public void saveLocationWithoutPhoto(){
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Enter location name");
+        builder.setTitle(R.string.save_location_noPhoto_title);
         builder.setIcon(android.R.drawable.ic_menu_save);
 
         final EditText input = new EditText(this);
@@ -284,14 +285,14 @@ public class MapActivity extends FragmentActivity implements
         input.setInputType(InputType.TYPE_CLASS_TEXT);
         builder.setView(input);
 
-        builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton((R.string.save_location_noPhoto_save), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 saveAndGoBack(input.getText().toString(),textAddress,textCity,textLan,textLon,"NO");
             }
         });
 
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton((R.string.save_location_noPhoto_cancel), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
