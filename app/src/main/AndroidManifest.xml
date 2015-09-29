@@ -18,11 +18,11 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppThemeGreen" >
         <activity
             android:name=".InitActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme" >
+            android:theme="@style/AppThemeGreen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -44,27 +44,24 @@
         <activity
             android:name=".MapActivity"
             android:label="@string/title_activity_map"
-            android:theme="@style/AppTheme" >
+            android:theme="@style/AppThemeGreen" >
         </activity>
-        <activity
-            android:name=".LocationsDBHandler"
-            android:label="@string/title_activity_locations_dbhandler"
-            android:theme="@style/AppTheme" >
-        </activity>
+
         <activity
             android:name=".ShowLocationActivity"
             android:label="@string/title_activity_show_location"
-            android:theme="@style/AppTheme" >
+            android:theme="@style/AppThemeGreen" >
         </activity>
         <activity
             android:name=".LocationDetailsActivity"
             android:label="@string/title_activity_location_details"
-            android:theme="@style/AppTheme" >
+            android:theme="@style/AppThemeGreen" >
         </activity>
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings" >
         </activity>
+
     </application>
 
 </manifest>

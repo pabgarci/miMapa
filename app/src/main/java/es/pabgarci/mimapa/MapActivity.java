@@ -1,12 +1,15 @@
 package es.pabgarci.mimapa;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -50,6 +53,7 @@ public class MapActivity extends FragmentActivity implements
     private String textCity;
     private double textLan;
     private double textLon;
+    SharedPreferences sharedPref;
 
     private TextView mLocationView;
 
@@ -57,7 +61,6 @@ public class MapActivity extends FragmentActivity implements
     private GoogleApiClient mGoogleApiClient;
 
     private final String PHOTOS_FOLDER = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/miMapa/";
-    //private File directory = new File(PHOTOS_FOLDER);
 
     public String getName() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyMMdd_hhmmss");
@@ -79,7 +82,6 @@ public class MapActivity extends FragmentActivity implements
                     intent.putExtras(b);
                     setResult(1, intent);
                     finish();
-
     }
 
     @Override
@@ -98,6 +100,7 @@ public class MapActivity extends FragmentActivity implements
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .build();
+
     }
 
     @Override
@@ -121,6 +124,8 @@ public class MapActivity extends FragmentActivity implements
 
         LocationServices.FusedLocationApi.requestLocationUpdates(
                 mGoogleApiClient, mLocationRequest, this);
+
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
     }
 
     @Override
@@ -247,29 +252,33 @@ public class MapActivity extends FragmentActivity implements
     }
 
     public void saveLocation(View v){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Do you want to take a picture for this location?");
-        builder.setIcon(android.R.drawable.ic_menu_save);
 
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        if(sharedPref.getBoolean("data_storage", true)) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Do you want to take a picture for this location?");
+            builder.setIcon(android.R.drawable.ic_menu_save);
 
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                takePhoto();
-            }
+            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    takePhoto();
+                }
 
 
-        });
+            });
 
-        builder.setNegativeButton("No (Save without picture)", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                saveLocationWithoutPhoto();
-            }
-        });
+            builder.setNegativeButton("No (Save without picture)", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    saveLocationWithoutPhoto();
+                }
+            });
 
-        builder.show();
-
+            builder.show();
+        }else if(!sharedPref.getBoolean("data_storage", true)){
+            saveLocationWithoutPhoto();
+        }
     }
 
 

@@ -1,8 +1,12 @@
 package es.pabgarci.mimapa;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -16,6 +20,7 @@ import android.os.StrictMode;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -29,6 +34,7 @@ public class InitActivity extends AppCompatActivity {
     SQLiteDatabase db;
     ListView list;
     Toolbar toolbar;
+    SharedPreferences sharedPref;
 
     public int countDB() {
         int count;
@@ -139,40 +145,64 @@ public class InitActivity extends AppCompatActivity {
 
     }
 
+    public void setPreferences() {
+        PreferenceManager.setDefaultValues(this, R.xml.pref_general, false);
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        Toast.makeText(getApplicationContext(), "" + sharedPref.getBoolean("data_storage", true), Toast.LENGTH_SHORT).show();
+    }
+
+    public void loadToolbar(){
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setIcon(R.mipmap.ic_launcher);
+        getSupportActionBar().setTitle("miMapa");
+        getSupportActionBar().setSubtitle("Inicio");
+    }
+
+    public void setLanguage(){
+        String languageToLoad  = Locale.getDefault().getLanguage();
+        String languageSetings = sharedPref.getString("pref_language", "en");
+        Locale locale;
+        Configuration config = new Configuration();
+        if(languageSetings.equals(languageToLoad)) {
+            locale= new Locale (languageToLoad);
+
+        }else{
+            locale= new Locale (languageSetings);
+        }
+        Locale.setDefault(locale);
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config,
+                getBaseContext().getResources().getDisplayMetrics());
+    }
+
+    public void setMyTheme(){
+        String color = sharedPref.getString("pref_color","Green");
+        if(color.equals("Green")){
+            setTheme(R.style.AppThemeGreen);
+        }else if(color.equals("Orange")){
+            setTheme(R.style.AppThemeOrange);
+        }
+
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-
+        setPreferences();
+        setMyTheme();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_init);
         admin = new LocationsDBHandler(this, "Locations", null, 1);
         db = admin.getWritableDatabase();
         list = (ListView) findViewById(R.id.listView);
         setListView();
+        setLanguage();
+        loadToolbar();
 
-        String languageToLoad  = Locale.getDefault().getLanguage();
-        Locale locale = new Locale (languageToLoad);
-        Locale.setDefault(locale);
-        Configuration config = new Configuration();
-        config.locale = locale;
-        getBaseContext().getResources().updateConfiguration(config,
-                getBaseContext().getResources().getDisplayMetrics());
-
-        Context context = getApplicationContext();
-        CharSequence text = languageToLoad;
-        int duration = Toast.LENGTH_SHORT;
-
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
-
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setIcon(R.mipmap.ic_launcher);
-        getSupportActionBar().setTitle("miMapa");
-        getSupportActionBar().setSubtitle("Inicio");
     }
 
     public void goToLocationDetails(int id) {

@@ -11,7 +11,7 @@
     <string name="action_goToInternetStatus">Check Internet Status</string>
 
     <string name="title_activity_internet_status">InternetStatus</string>
-
+    <string name="color_toolbar">"@color/color_green_dark"</string>
     <string name="text_app_name">miMapa</string>
     <string name="text_map">Open Map</string>
     <string name="text_back">Go Back</string>
@@ -20,6 +20,23 @@
     <string name="text_getLocation">Getting location...</string>
     <string name="title_activity_show_location">Map</string>
     <string name="title_activity_settings">Settings</string>
+
+    <string-array name="pref_color">
+        <item >Green</item>
+        <item>Orange</item>
+    </string-array>
+
+    <string-array name="pref_language">
+        <item >English</item>
+        <item>Español</item>
+        <item>Norsk</item>
+    </string-array>
+
+    <string-array name="pref_language_values">
+        <item >en</item>
+        <item>es</item>
+        <item>no</item>
+    </string-array>
 
     <!-- Strings related to Settings -->
 
@@ -47,7 +64,7 @@
     </string-array>
 
     <!-- Example settings for Data & Sync -->
-    <string name="pref_header_data_sync">Data &amp; sync</string>
+    <string name="pref_header_data">Data</string>
 
     <string name="pref_title_sync_frequency">Sync frequency</string>
     <string-array name="pref_sync_frequency_titles">
@@ -70,7 +87,7 @@
     <string name="pref_title_system_sync_settings">System sync settings</string>
 
     <!-- Example settings for Notifications -->
-    <string name="pref_header_notifications">Notifications</string>
+    <string name="pref_header_language">Language</string>
 
     <string name="pref_title_new_message_notifications">New message notifications</string>
 
