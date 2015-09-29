@@ -35,7 +35,6 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -64,7 +63,7 @@ public class MapActivity extends FragmentActivity implements
     //private File directory = new File(PHOTOS_FOLDER);
 
     public String getName() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyMMdd_hhmmss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyMMdd_hhmmss",Locale.getDefault());
         String date = dateFormat.format(new Date());
         return "miMapa_" + date;
     }
@@ -195,7 +194,7 @@ public class MapActivity extends FragmentActivity implements
         textLan=location.getLatitude();
         textLon=location.getLongitude();
     }
-
+    @SuppressWarnings("deprecation")
     public void saveLocationWithPhoto(final String photoLocation){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.save_location_photo_title);
@@ -204,6 +203,7 @@ public class MapActivity extends FragmentActivity implements
         final EditText input = new EditText(this);
 
         input.setInputType(InputType.TYPE_CLASS_TEXT);
+        input.setTextColor(getResources().getColor(R.color.black));
         builder.setView(input);
 
         builder.setPositiveButton(R.string.save_location_photo_save, new DialogInterface.OnClickListener() {
@@ -229,28 +229,37 @@ public class MapActivity extends FragmentActivity implements
     }
 
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
-        super.onActivityResult(requestCode, resultCode, data);
-        String file = PHOTOS_FOLDER + getName() + ".jpg";
-        if(requestCode==1) {
-            if (data != null) {
-                Bitmap bitmap = (Bitmap)data.getExtras().get("data");
-                File picture = new File(file);
-                try {
-                    FileOutputStream fileOutputStream = new FileOutputStream(picture);
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fileOutputStream);
-                    fileOutputStream.flush();
-                    fileOutputStream.close();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+    @SuppressWarnings("deprecation")
+    public void saveLocationWithoutPhoto(){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.save_location_noPhoto_title);
+        builder.setIcon(android.R.drawable.ic_menu_save);
+
+        final EditText input = new EditText(this);
+
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        input.setTextColor(getResources().getColor(R.color.black));
+        builder.setView(input);
+
+        builder.setPositiveButton((R.string.save_location_noPhoto_save), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                saveAndGoBack(input.getText().toString(),textAddress,textCity,textLan,textLon,"NO");
             }
-            saveLocationWithPhoto(file);
-        }
+        });
+
+        builder.setNegativeButton((R.string.save_location_noPhoto_cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
     }
+
+
 
     public void saveLocation(View v) {
 
@@ -293,33 +302,6 @@ public class MapActivity extends FragmentActivity implements
 
 
 
-    public void saveLocationWithoutPhoto(){
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(R.string.save_location_noPhoto_title);
-        builder.setIcon(android.R.drawable.ic_menu_save);
-
-        final EditText input = new EditText(this);
-
-        input.setInputType(InputType.TYPE_CLASS_TEXT);
-        builder.setView(input);
-
-        builder.setPositiveButton((R.string.save_location_noPhoto_save), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                saveAndGoBack(input.getText().toString(),textAddress,textCity,textLan,textLon,"NO");
-            }
-        });
-
-        builder.setNegativeButton((R.string.save_location_noPhoto_cancel), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-
-        builder.show();
-    }
 
 
 
@@ -345,5 +327,32 @@ public class MapActivity extends FragmentActivity implements
     }
 
     private void setUpMap() {
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+        String file = PHOTOS_FOLDER + getName() + ".jpg";
+        if(requestCode==1) {
+            if (data != null) {
+                Bitmap bitmap = (Bitmap)data.getExtras().get("data");
+                File picture = new File(file);
+                try {
+                    FileOutputStream fileOutputStream = new FileOutputStream(picture);
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fileOutputStream);
+                    fileOutputStream.flush();
+                    fileOutputStream.close();
+                }catch (IOException e) {
+                    e.printStackTrace();
+                }
+                if(bitmap==null){
+                    saveLocationWithoutPhoto();
+                }else{
+                    saveLocationWithPhoto(file);
+                }
+
+            }
+
+        }
     }
 }

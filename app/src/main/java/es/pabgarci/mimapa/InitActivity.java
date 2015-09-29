@@ -1,9 +1,7 @@
 package es.pabgarci.mimapa;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.graphics.Color;
 import android.os.Bundle;
 
 import android.preference.PreferenceManager;
@@ -19,7 +17,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.StrictMode;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -152,6 +149,7 @@ public class InitActivity extends AppCompatActivity {
     public void loadToolbar(){
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        assert getSupportActionBar() != null;
         getSupportActionBar().setIcon(R.mipmap.ic_launcher);
         getSupportActionBar().setTitle(R.string.app_name);
         getSupportActionBar().setSubtitle(R.string.app_surname);
@@ -193,9 +191,9 @@ public class InitActivity extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
         setPreferences();
         setMyTheme();
+        setLanguage();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_init);
-        setLanguage();
         admin = new LocationsDBHandler(this, "Locations", null, 1);
         db = admin.getWritableDatabase();
         list = (ListView) findViewById(R.id.listView);

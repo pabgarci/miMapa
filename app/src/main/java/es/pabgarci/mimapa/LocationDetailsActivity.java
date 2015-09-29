@@ -33,6 +33,14 @@ public class LocationDetailsActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onRestart(){
+        super.onRestart();
+        finish();
+        startActivity(getIntent());
+    }
+
+    @Override
+    @SuppressWarnings("deprecation")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location_details);
@@ -57,6 +65,7 @@ public class LocationDetailsActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar_details);
         setSupportActionBar(toolbar);
+        assert getSupportActionBar() != null;
         getSupportActionBar().setIcon(R.mipmap.ic_launcher);
         getSupportActionBar().setTitle("miMapa");
         getSupportActionBar().setSubtitle("Detalles de localización");
@@ -67,7 +76,9 @@ public class LocationDetailsActivity extends AppCompatActivity {
             detailsImage.setImageResource(R.drawable.nophoto);
         }else{
             Bitmap bitMapScaled = Bitmap.createScaledBitmap(getImageFromSD(photoLocation), display.getWidth(), display.getHeight() - 350, true);
-            detailsImage.setImageBitmap(bitMapScaled);
+            if(bitMapScaled!=null) {
+                detailsImage.setImageBitmap(bitMapScaled);
+            }
         }
 
 

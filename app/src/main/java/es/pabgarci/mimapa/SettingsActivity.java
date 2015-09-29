@@ -7,7 +7,7 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-
+@SuppressWarnings("deprecation")
 public class SettingsActivity extends ActionBarActivity  {
     SharedPreferences sharedPref;
 

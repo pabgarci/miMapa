@@ -1,6 +1,5 @@
 <resources>
 
-    //test
     <string name="app_name">miMapa</string>
     <string name="app_surname">Inicio</string>
 
@@ -23,7 +22,7 @@
 
     <string name="text_location_saved">Localización guardada</string>
     <string name="text_no_location">Ninguna localización guardada</string>
-    <string name="text_you_are_here">Usted está aqui</string>
+    <string name="text_you_are_here">Usted está aquí</string>
     <string name="text_address">Dirección</string>
 
     <string name="settings_theme">Tema</string>
@@ -51,6 +50,7 @@
         <item>Auto</item>
         <item >Inglés</item>
         <item>Español</item>
+        <item>Alemán</item>
         <item>Noruego</item>
     </string-array>
 
@@ -58,6 +58,7 @@
         <item>auto</item>
         <item >en</item>
         <item>es</item>
+        <item>de</item>
         <item>no</item>
     </string-array>
 

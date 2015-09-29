@@ -50,6 +50,7 @@
         <item>Auto</item>
         <item >Engelsk</item>
         <item>Spansk</item>
+        <item>Tysk</item>
         <item>Norsk</item>
     </string-array>
 
@@ -57,6 +58,7 @@
         <item>auto</item>
         <item >en</item>
         <item>es</item>
+        <item>de</item>
         <item>no</item>
     </string-array>
 
