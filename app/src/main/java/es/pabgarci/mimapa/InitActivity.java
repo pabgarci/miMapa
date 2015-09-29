@@ -1,11 +1,11 @@
 package es.pabgarci.mimapa;
 
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 
-import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
@@ -22,16 +22,14 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Locale;
 
-
-public class InitActivity extends AppCompatActivity {
+public class InitActivity extends ActionBarActivity {
 
     LocationsDBHandler admin;
     SQLiteDatabase db;
     ListView list;
-    Toolbar toolbar;
-    SharedPreferences sharedPref;
+
+    private Toolbar toolbar;
 
     public int countDB() {
         int count;
@@ -40,7 +38,6 @@ public class InitActivity extends AppCompatActivity {
         c.close();
         return count;
     }
-
 
     public String[] fillArrayFromDB() {
         String values[] = new String[countDB()];
@@ -139,67 +136,23 @@ public class InitActivity extends AppCompatActivity {
         photoAux = c.getString(0);
         c.close();
         return photoAux;
-
     }
-
-    public void setPreferences() {
-        PreferenceManager.setDefaultValues(this, R.xml.pref_general, false);
-        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        Toast.makeText(getApplicationContext(), "" + sharedPref.getBoolean("data_storage", true), Toast.LENGTH_SHORT).show();
-    }
-
-    public void loadToolbar(){
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setIcon(R.mipmap.ic_launcher);
-        getSupportActionBar().setTitle("miMapa");
-        getSupportActionBar().setSubtitle("Inicio");
-    }
-
-    public void setLanguage(){
-        String languageToLoad  = Locale.getDefault().getLanguage();
-        String languageSetings = sharedPref.getString("pref_language", "en");
-        Locale locale;
-        Configuration config = new Configuration();
-        if(languageSetings.equals(languageToLoad)) {
-            locale= new Locale (languageToLoad);
-
-        }else{
-            locale= new Locale (languageSetings);
-        }
-        Locale.setDefault(locale);
-        config.locale = locale;
-        getBaseContext().getResources().updateConfiguration(config,
-                getBaseContext().getResources().getDisplayMetrics());
-    }
-
-    public void setMyTheme(){
-        String color = sharedPref.getString("pref_color","Green");
-        if(color.equals("Green")){
-            setTheme(R.style.AppThemeGreen);
-        }else if(color.equals("Orange")){
-            setTheme(R.style.AppThemeOrange);
-        }
-
-    }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        setPreferences();
-        setMyTheme();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_init);
         admin = new LocationsDBHandler(this, "Locations", null, 1);
         db = admin.getWritableDatabase();
         list = (ListView) findViewById(R.id.listView);
         setListView();
-        setLanguage();
-        loadToolbar();
 
+        setSupportActionBar(toolbar);
+        toolbar.inflateMenu(R.menu.menu_init);
     }
 
     public void goToLocationDetails(int id) {
@@ -237,10 +190,10 @@ public class InitActivity extends AppCompatActivity {
         startActivityForResult(intent, 1);
     }
 
-    public void goToSettings(View view) {
+    /*public void goToSettings(View view) {
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
-    }
+    }*/
 
     public void deleteDB() {
         db.delete("Locations", null, null);
@@ -261,6 +214,7 @@ public class InitActivity extends AppCompatActivity {
         setListView();
 
     }
+
 
 
     @Override
@@ -301,9 +255,9 @@ public class InitActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-            switch (item.getItemId()) {
+           switch (item.getItemId()) {
                 case R.id.action_settings:
-                   goToSettings(findViewById(android.R.id.content));
+                    //goToSettings(findViewById(android.R.id.content));
                     break;
                 case R.id.action_clearRecords:
                     deleteDB();
