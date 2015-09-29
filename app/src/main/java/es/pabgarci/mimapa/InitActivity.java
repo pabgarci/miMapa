@@ -24,6 +24,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
 
+/*
+* This activity is the main activity of the app
+* It shows the list of the locations saved in the database, the settings, and the option
+* to show the users current location in a map.
+* */
+
 public class InitActivity extends AppCompatActivity {
 
     LocationsDBHandler admin;
@@ -32,6 +38,7 @@ public class InitActivity extends AppCompatActivity {
     Toolbar toolbar;
     SharedPreferences sharedPref;
 
+    //returns the number of rows of the database
     public int countDB() {
         int count;
         Cursor c = db.rawQuery("Select * from Locations", null);
@@ -215,7 +222,7 @@ public class InitActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
-
+    //Shows locations saved by the user in the listview
     public void setListView() {
         ArrayList<String> valuesList = new ArrayList<>();
         valuesList.addAll(Arrays.asList(fillArrayFromDB()));
@@ -270,6 +277,7 @@ public class InitActivity extends AppCompatActivity {
         startActivity(getIntent());
     }
 
+    //Recieves information from other intents and stores it in the database
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
