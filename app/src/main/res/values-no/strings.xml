@@ -24,14 +24,14 @@
     </string-array>
 
     <string-array name="pref_color_values">
-        <item >Green</item>
-        <item>Orange</item>
+        <item >Grønn</item>
+        <item>Oransje</item>
     </string-array>
 
     <string-array name="pref_language">
         <item>Auto</item>
-        <item >English</item>
-        <item>Español</item>
+        <item >Engelsk</item>
+        <item>Spansk</item>
         <item>Norsk</item>
     </string-array>
 

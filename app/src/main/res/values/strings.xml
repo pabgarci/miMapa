@@ -40,8 +40,8 @@
     <string-array name="pref_language">
         <item>Auto</item>
         <item >English</item>
-        <item>Español</item>
-        <item>Norsk</item>
+        <item>Spanish</item>
+        <item>Norwegian</item>
     </string-array>
 
     <string-array name="pref_language_values">

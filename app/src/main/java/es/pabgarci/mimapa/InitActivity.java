@@ -291,7 +291,7 @@ public class InitActivity extends AppCompatActivity {
                 showLat = b.getDouble("LAT");
                 showLon = b.getDouble("LON");
                 String photoLocation = b.getString("PHOTO_LOCATION");
-                String show = R.string.text_location_saved + "\n" + showName + "\n" + showAddress + ", " + showCity;
+                String show = getResources().getString(R.string.text_location_saved) + "\n" + showName + "\n" + showAddress + ", " + showCity;
                 Toast.makeText(getApplicationContext(), show, Toast.LENGTH_SHORT).show();
                 writeDB(showName, showAddress, showCity, showLat, showLon, photoLocation);
                 setListView();

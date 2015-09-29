@@ -278,6 +278,12 @@ public class MapActivity extends FragmentActivity implements
                 }
             });
 
+            builder.setNegativeButton(R.string.save_location_no, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    saveLocationWithoutPhoto();
+                }
+            });
 
             builder.show();
         } else if (!sharedPref.getBoolean("data_storage", true)) {
