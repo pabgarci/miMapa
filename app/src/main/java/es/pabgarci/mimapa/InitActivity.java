@@ -255,7 +255,7 @@ public class InitActivity extends AppCompatActivity {
                 setListView();
 
             } else {
-                Toast.makeText(getApplicationContext(), "Any location saved", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "No location saved", Toast.LENGTH_SHORT).show();
             }
         }
     }
