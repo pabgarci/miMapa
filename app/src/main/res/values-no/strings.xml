@@ -1,39 +1,49 @@
 <resources>
+    //test
     <string name="app_name">miMapa</string>
 
-    <string name="button_add_location">Añadir Localización</string>
-    <string name="button_show_location_map">Mostrar localización en el mapa</string>
-    <string name="text_getLocation">Obteniendo localización</string>
-    <string name="button_saveLocation">Guardar localización</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_clearRecords">Slett data</string>
+    <string name="title_activity_map">Kart</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="title_activity_location_details">Lokasjon detaljer</string>
 
-    <string name="save_location_title">¿Quieres sacar una foto para esta localización?</string>
-    <string name="save_location_yes">Si</string>
-    <string name="save_location_no">No (Guardar sin foto)</string>
 
-    <string name="save_location_noPhoto_title">Inserta nombre de localización</string>
-    <string name="save_location_noPhoto_save">Guardar</string>
-    <string name="save_location_noPhoto_cancel">Cancelar</string>
+    <string name="button_add_location">Legg til lokasjon</string>
+    <string name="button_show_location_map">Vis lokasjon Kart</string>
+    <string name="text_getLocation">Hent lokasjon</string>
+    <string name="button_saveLocation">Lagre Lokasjon</string>
 
-    <string name="save_location_photo_title">Inserta nombre de localización</string>
-    <string name="save_location_photo_save">Guardar</string>
-    <string name="save_location_photo_cancel">Cancelar</string>
+    <string name="save_location_title">Ønsker du å lagre et bilde til lokasjonen?</string>
+    <string name="save_location_yes">Ja</string>
+    <string name="save_location_no">Nei (Lagre uten bilde)</string>
+
+    <string name="save_location_noPhoto_title">Legg til lokasjons navn</string>
+    <string name="save_location_noPhoto_save">Lagre</string>
+    <string name="save_location_noPhoto_cancel">Avbryt</string>
+
+    <string name="save_location_photo_title">Legg til lokasjons navn</string>
+    <string name="save_location_photo_save">Lagre</string>
+    <string name="save_location_photo_cancel">Avbryt</string>
+
 
     <string name="settings_theme">Tema</string>
-    <string name="settings_color">Color</string>
-    <string name="settings_storage">Almacenimiento</string>
-    <string name="settings_take_photo">Tomar fotograía</string>
-    <string name="settings_language">Idoma</string>
-    <string name="settings_change_language">Cambiar idioma</string>
+    <string name="settings_color">Farge</string>
+    <string name="settings_storage">Lager</string>
+    <string name="settings_take_photo">Ta bilde</string>
+    <string name="settings_language">Språk</string>
+    <string name="settings_change_language">Bytt språk</string>
 
     <string-array name="pref_color">
-        <item >Green</item>
-        <item>Orange</item>
+        <item >Grønn</item>
+        <item>Oransje</item>
     </string-array>
 
     <string-array name="pref_color_values">
         <item >Grønn</item>
         <item>Oransje</item>
     </string-array>
+
 
     <string-array name="pref_language">
         <item>Auto</item>
@@ -48,5 +58,13 @@
         <item>es</item>
         <item>no</item>
     </string-array>
+
+    <string name="text_location_saved">Lokasjon lagret</string>
+    <string name="text_no_location">Ingen lokasjon lagret</string>
+    <string name="text_you_are_here">Du er her</string>
+    <string name="text_address">Adress</string>
+    <string name="title_activity_show_location">Kart</string>
+
+
 
 </resources>
