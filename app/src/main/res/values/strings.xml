@@ -1,6 +1,7 @@
 <resources>
     //test
     <string name="app_name">miMapa</string>
+    <string name="app_surname">Index</string>
 
     <string name="action_settings">Settings</string>
     <string name="action_clearRecords">Clear records</string>
@@ -33,6 +34,7 @@
     <string name="settings_take_photo">Take fotograph</string>
     <string name="settings_language">Language</string>
     <string name="settings_change_language">Change language</string>
+
     
     <string-array name="pref_color">
         <item >Green</item>

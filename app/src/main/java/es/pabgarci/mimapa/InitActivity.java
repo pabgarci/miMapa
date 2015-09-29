@@ -19,6 +19,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.StrictMode;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -26,7 +27,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
 
-//test comment
 public class InitActivity extends AppCompatActivity {
 
     LocationsDBHandler admin;
@@ -147,7 +147,6 @@ public class InitActivity extends AppCompatActivity {
     public void setPreferences() {
         PreferenceManager.setDefaultValues(this, R.xml.pref_general, false);
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        Toast.makeText(getApplicationContext(), "" + sharedPref.getBoolean("data_storage", true), Toast.LENGTH_SHORT).show();
     }
 
     public void loadToolbar(){
@@ -155,7 +154,7 @@ public class InitActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setIcon(R.mipmap.ic_launcher);
         getSupportActionBar().setTitle(R.string.app_name);
-        getSupportActionBar().setSubtitle("Inicio");
+        getSupportActionBar().setSubtitle(R.string.app_surname);
     }
 
     public void setLanguage(){
@@ -165,7 +164,6 @@ public class InitActivity extends AppCompatActivity {
         Configuration config = new Configuration();
         if(languageSetings.equals(languageToLoad)) {
             locale= new Locale (languageToLoad);
-
         }else if(languageSetings.equals("auto")){
             locale= new Locale (languageToLoad);
         }else{
@@ -195,9 +193,9 @@ public class InitActivity extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
         setPreferences();
         setMyTheme();
-        setLanguage();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_init);
+        setLanguage();
         admin = new LocationsDBHandler(this, "Locations", null, 1);
         db = admin.getWritableDatabase();
         list = (ListView) findViewById(R.id.listView);

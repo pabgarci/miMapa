@@ -1,6 +1,7 @@
 <resources>
-    //test
+
     <string name="app_name">miMapa</string>
+    <string name="app_surname">Meny</string>
 
     <string name="action_settings">Settings</string>
     <string name="action_clearRecords">Slett data</string>

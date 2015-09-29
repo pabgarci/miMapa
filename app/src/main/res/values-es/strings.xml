@@ -2,6 +2,7 @@
 
     //test
     <string name="app_name">miMapa</string>
+    <string name="app_surname">Inicio</string>
 
     <string name="button_add_location">Añadir Localización</string>
     <string name="button_show_location_map">Mostrar localización en el mapa</string>
@@ -31,6 +32,9 @@
     <string name="settings_take_photo">Tomar fotograía</string>
     <string name="settings_language">Idoma</string>
     <string name="settings_change_language">Cambiar idioma</string>
+
+    <string name="action_settings">Ajustes</string>
+    <string name="action_clearRecords">Limpiar registro</string>
 
 
     <string-array name="pref_color">

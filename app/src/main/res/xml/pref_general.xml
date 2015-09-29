@@ -1,39 +1,40 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory
-        android:title="@string/settings_theme">
+<PreferenceCategory
+    android:title="@string/settings_theme"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-        <ListPreference
-            android:key="pref_color"
-            android:title="@string/settings_color"
-            android:defaultValue="Green"
-            android:entries="@array/pref_color"
-            android:entryValues="@array/pref_color_values"
-            android:negativeButtonText="@null"
-            android:positiveButtonText="@null" />
-    </PreferenceCategory>
-    <PreferenceCategory
-        android:title="@string/settings_storage">
+    <ListPreference
+        android:key="pref_color"
+        android:title="@string/settings_color"
+        android:defaultValue="Green"
+        android:entries="@array/pref_color"
+        android:entryValues="@array/pref_color_values"
+        android:negativeButtonText="@null"
+        android:positiveButtonText="@null" />
+</PreferenceCategory>
+<PreferenceCategory
+android:title="@string/settings_storage">
 <SwitchPreference
     android:key="data_storage"
     android:title="@string/settings_take_photo"
     android:defaultValue="true"
-/>
+    />
 </PreferenceCategory>
 
-    <PreferenceCategory
-        android:title="@string/settings_language">
+<PreferenceCategory
+android:title="@string/settings_language">
 
-        <ListPreference
-            android:key="pref_language"
-            android:title="@string/settings_change_language"
-            android:defaultValue="en"
-            android:entries="@array/pref_language"
-            android:entryValues="@array/pref_language_values"
-            android:negativeButtonText="@null"
-            android:positiveButtonText="@null" />
+<ListPreference
+    android:key="pref_language"
+    android:title="@string/settings_change_language"
+    android:defaultValue="en"
+    android:entries="@array/pref_language"
+    android:entryValues="@array/pref_language_values"
+    android:negativeButtonText="@null"
+    android:positiveButtonText="@null" />
 
 
-    </PreferenceCategory>
+</PreferenceCategory>
 
-</PreferenceScreen>
+    </PreferenceScreen>
