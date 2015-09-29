@@ -20,7 +20,6 @@ import android.os.StrictMode;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -155,18 +154,20 @@ public class InitActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setIcon(R.mipmap.ic_launcher);
-        getSupportActionBar().setTitle("miMapa");
+        getSupportActionBar().setTitle(R.string.app_name);
         getSupportActionBar().setSubtitle("Inicio");
     }
 
     public void setLanguage(){
         String languageToLoad  = Locale.getDefault().getLanguage();
-        String languageSetings = sharedPref.getString("pref_language", "en");
+        String languageSetings = sharedPref.getString("pref_language", "no");
         Locale locale;
         Configuration config = new Configuration();
         if(languageSetings.equals(languageToLoad)) {
             locale= new Locale (languageToLoad);
 
+        }else if(languageSetings.equals("auto")){
+            locale= new Locale (languageToLoad);
         }else{
             locale= new Locale (languageSetings);
         }
@@ -194,13 +195,13 @@ public class InitActivity extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
         setPreferences();
         setMyTheme();
+        setLanguage();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_init);
         admin = new LocationsDBHandler(this, "Locations", null, 1);
         db = admin.getWritableDatabase();
         list = (ListView) findViewById(R.id.listView);
         setListView();
-        setLanguage();
         loadToolbar();
 
     }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">miMapa</string>
+    <string name="app_name">miMapaES</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_map">Map</string>
     <string name="title_activity_locations_dbhandler">LocationsDBHandler</string>

@@ -25,7 +25,7 @@
         android:title="Idioma">
 
         <ListPreference
-            android:key="pref_color"
+            android:key="pref_language"
             android:title="Cambiar idioma"
             android:defaultValue="en"
             android:entries="@array/pref_language"
