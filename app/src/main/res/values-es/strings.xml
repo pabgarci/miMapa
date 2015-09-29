@@ -1,4 +1,6 @@
 <resources>
+
+    //test
     <string name="app_name">miMapa</string>
 
     <string name="button_add_location">Añadir Localización</string>
