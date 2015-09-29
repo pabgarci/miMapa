@@ -59,6 +59,8 @@ public class MapActivity extends FragmentActivity implements
     private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
 
+    SharedPreferences sharedPref;
+
     private final String PHOTOS_FOLDER = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/miMapa/";
     //private File directory = new File(PHOTOS_FOLDER);
 
@@ -251,42 +253,39 @@ public class MapActivity extends FragmentActivity implements
         }
     }
 
-    public void saveLocation(View v){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    public void saveLocation(View v) {
 
-        builder.setTitle(R.string.save_location_title);
-        builder.setIcon(android.R.drawable.ic_menu_save);
+        if (sharedPref.getBoolean("data_storage", true)) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        builder.setPositiveButton(R.string.save_location_yes, new DialogInterface.OnClickListener() {
+            builder.setTitle(R.string.save_location_title);
+            builder.setIcon(android.R.drawable.ic_menu_save);
 
-            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            builder.setPositiveButton(R.string.save_location_yes, new DialogInterface.OnClickListener() {
+
 
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     takePhoto();
                 }
 
-        });
+            });
 
-        builder.setNegativeButton(R.string.save_location_no, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                saveLocationWithoutPhoto();
-            }
-        });
-
-            builder.setNegativeButton("No (Save without picture)", new DialogInterface.OnClickListener() {
+            builder.setNegativeButton(R.string.save_location_no, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     saveLocationWithoutPhoto();
                 }
             });
 
+
             builder.show();
-        }else if(!sharedPref.getBoolean("data_storage", true)){
+        } else if (!sharedPref.getBoolean("data_storage", true)) {
             saveLocationWithoutPhoto();
         }
     }
+
+
 
 
     public void saveLocationWithoutPhoto(){

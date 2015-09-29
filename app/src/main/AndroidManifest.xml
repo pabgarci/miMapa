@@ -46,13 +46,11 @@
             android:label="@string/title_activity_map"
             android:theme="@style/AppThemeGreen" >
         </activity>
-
         <activity
             android:name=".ShowLocationActivity"
             android:label="@string/title_activity_show_location"
             android:theme="@style/AppThemeGreen" >
         </activity>
-
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings" >
@@ -60,7 +58,7 @@
         <activity
             android:name=".LocationDetailsActivity"
             android:label="@string/title_activity_location_details"
-            android:theme="@style/AppTheme" >
+            android:theme="@style/AppThemeGreen" >
         </activity>
     </application>
 

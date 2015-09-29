@@ -178,7 +178,7 @@ public class InitActivity extends AppCompatActivity {
     }
 
     public void setMyTheme(){
-        String color = sharedPref.getString("pref_color","Green");
+        String color = sharedPref.getString("pref_color", "Green");
         if(color.equals("Green")){
             setTheme(R.style.AppThemeGreen);
         }else if(color.equals("Orange")){
@@ -204,20 +204,7 @@ public class InitActivity extends AppCompatActivity {
         setListView();
         loadToolbar();
 
-        String languageToLoad  = Locale.getDefault().getLanguage();
-        Locale locale = new Locale (languageToLoad);
-        Locale.setDefault(locale);
-        Configuration config = new Configuration();
-        config.locale = locale;
-        getBaseContext().getResources().updateConfiguration(config,
-                getBaseContext().getResources().getDisplayMetrics());
 
-        Context context = getApplicationContext();
-        CharSequence text = languageToLoad;
-        int duration = Toast.LENGTH_SHORT;
-
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
     }
 
     public void goToLocationDetails(int id) {
@@ -280,6 +267,12 @@ public class InitActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onRestart(){
+        super.onRestart();
+        finish();
+        startActivity(getIntent());
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -300,13 +293,11 @@ public class InitActivity extends AppCompatActivity {
                 String photoLocation = b.getString("PHOTO_LOCATION");
                 String show = R.string.text_location_saved + "\n" + showName + "\n" + showAddress + ", " + showCity;
                 Toast.makeText(getApplicationContext(), show, Toast.LENGTH_SHORT).show();
-                Toast.makeText(getApplicationContext(), "" + photoLocation, Toast.LENGTH_SHORT).show();
                 writeDB(showName, showAddress, showCity, showLat, showLon, photoLocation);
                 setListView();
 
             } else {
                 Toast.makeText(getApplicationContext(), R.string.text_no_location, Toast.LENGTH_SHORT).show();
-                Toast.makeText(getApplicationContext(), "Any location saved", Toast.LENGTH_SHORT).show();
             }
         }
     }

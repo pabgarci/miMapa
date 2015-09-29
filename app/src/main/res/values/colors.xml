@@ -8,5 +8,6 @@
     <color name="color_green_light">#AED581</color>
     <color name="color_orange_dark">#FF8F00</color>
     <color name="color_orange_light">#FFD54F</color>
+    <color name="colorButton">#A1887F</color>
 
 </resources>

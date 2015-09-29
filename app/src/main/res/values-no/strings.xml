@@ -17,5 +17,29 @@
     <string name="save_location_photo_title">Inserta nombre de localización</string>
     <string name="save_location_photo_save">Guardar</string>
     <string name="save_location_photo_cancel">Cancelar</string>
-//test
+
+    <string-array name="pref_color">
+        <item >Green</item>
+        <item>Orange</item>
+    </string-array>
+
+    <string-array name="pref_color_values">
+        <item >Green</item>
+        <item>Orange</item>
+    </string-array>
+
+    <string-array name="pref_language">
+        <item>Auto</item>
+        <item >English</item>
+        <item>Español</item>
+        <item>Norsk</item>
+    </string-array>
+
+    <string-array name="pref_language_values">
+        <item>auto</item>
+        <item >en</item>
+        <item>es</item>
+        <item>no</item>
+    </string-array>
+
 </resources>
