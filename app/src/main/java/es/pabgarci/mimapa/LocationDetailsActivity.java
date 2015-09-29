@@ -15,6 +15,14 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
+/*
+* This activity shows the details of a saved location from the database
+* it shows the picture saved from the location, the street, city and country,
+* as well as the latitude and longitude of the location.
+* To show the picture first it gets the size of the window to determine the size of the picture
+ */
+
+
 public class LocationDetailsActivity extends AppCompatActivity {
 
     double showLat;
@@ -39,6 +47,12 @@ public class LocationDetailsActivity extends AppCompatActivity {
         startActivity(getIntent());
     }
 
+    /*
+ *IMPORTANT NOTE: we couldn't manage to make it work in certain phone brands,
+ * because of their own camera app. The native camera app saves the picture in its default folder
+ * and with the default name, this way when we want to get the picture we have a null pointer exception
+ * in the name and folder we are using, but in some brands such as samsung it works perfectly
+ * */
     @Override
     @SuppressWarnings("deprecation")
     protected void onCreate(Bundle savedInstanceState) {

@@ -41,6 +41,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+/*
+* This activity shows the user's location and gives the option to save it.
+* If the user saves the location this class will store it in the database
+* */
+
 
 public class MapActivity extends FragmentActivity implements
         GoogleApiClient.ConnectionCallbacks,
@@ -85,6 +90,7 @@ public class MapActivity extends FragmentActivity implements
 
     }
 
+    //Opens the map and starts gps
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -180,6 +186,7 @@ public class MapActivity extends FragmentActivity implements
         return textCity;
     }
 
+    //displays all the gps current location information and shows on the map
     @Override
     public void onLocationChanged(Location location) {
         String toShow = location.toString() + "\n" + R.string.text_address +": " + getAddress(location.getLatitude(), location.getLongitude())
@@ -329,6 +336,7 @@ public class MapActivity extends FragmentActivity implements
     private void setUpMap() {
     }
 
+    //stores the picture on the device
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);

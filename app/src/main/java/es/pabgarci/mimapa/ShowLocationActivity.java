@@ -10,6 +10,10 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+/*
+*This activity shows in a map a certain location stored in the database
+ * */
+
 
 public class ShowLocationActivity extends FragmentActivity implements OnMapReadyCallback {
 

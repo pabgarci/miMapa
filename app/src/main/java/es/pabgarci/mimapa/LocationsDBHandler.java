@@ -5,6 +5,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 
+/*
+* With this class we manage the Database
+* It creates the different columns we will use to store the locations.
+* */
+
+
 public class LocationsDBHandler extends SQLiteOpenHelper {
 
     public LocationsDBHandler(Context context, String name, CursorFactory factory, int version) {
